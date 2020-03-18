@@ -24,7 +24,7 @@ class Graph:
         if v1 in self.vertices and v2 in self.vertices:
             self.vertices[v1].add(v2)
         else:
-            raise ValueError("vertext does not exist")
+            raise ValueError(f"{v1} or {v2} does not exist")
 
     def get_neighbors(self, vertex_id):
         """
@@ -34,7 +34,7 @@ class Graph:
         if vertex_id in self.vertices:
             return self.vertices[vertex_id]
         else:
-            raise ValueError("vertex does not exist")        
+            raise ValueError(f"{vertex_id} does not exist")        
         print(f"\n")
 
     def bft(self, starting_vertex):
@@ -85,7 +85,7 @@ class Graph:
             # If it hasnt been visited...
             if not v in visited:
                 # Mark it as visited
-                print(v)
+                print(f"adding visted: {v}")
                 visited.add(v)
                 # Push all it's neighbors
                 for neighbor in self.get_neighbors(v):
@@ -179,32 +179,31 @@ class Graph:
         """
         # TODO
         # TODO
-        # Create a queue
+        # Create a stack
         s = Stack()
-        # Enqueue A PATH TO the starting vertex
+        # Push A PATH TO the starting vertex
         s.push([starting_vertex])
         
         # Create a set to store visited vertices
         visited = set()
-        # While the queue is not empty...
+        # While the stack is not empty...
         while s.size() > 0:
-            # Dequeue the first PATH
+            # pop the first PATH
             first_path = s.pop()         
                   
             # GRAB THE VERTEX FROM THE END OF THE PATH
             v = first_path[-1]   
-           
+
             # Check if it's been visited ...            
             # If it hasn't been visited...
             if not v in visited:
                 # Mark it as visited                
-                visited.add(v)
-                
+                visited.add(v)                
                 # CHECK IF IT'S THE TARGET
                 if v == destination_vertex:
                     # IF SO RETURN THE PATH
                     return first_path
-                # Enqueue a PATH TO all it's neighbors
+                # Push a PATH of all it's neighbors
                     # MAKE A COPY OF THE PATH
                     # ENQUEUE THE COPY
                 for neighbor in self.get_neighbors(v):
@@ -258,72 +257,72 @@ class Graph:
         
 
 if __name__ == '__main__':
-    # graph = Graph()  # Instantiate your graph
-    # # https://github.com/LambdaSchool/Graphs/blob/master/objectives/breadth-first-search/img/bfs-visit-order.png
-    # graph.add_vertex(1)
-    # graph.add_vertex(2)
-    # graph.add_vertex(3)
-    # graph.add_vertex(4)
-    # graph.add_vertex(5)
-    # graph.add_vertex(6)
-    # graph.add_vertex(7)
-    # graph.add_edge(5, 3)
-    # graph.add_edge(6, 3)
-    # graph.add_edge(7, 1)
-    # graph.add_edge(4, 7)
-    # graph.add_edge(1, 2)
-    # graph.add_edge(7, 6)
-    # graph.add_edge(2, 4)
-    # graph.add_edge(3, 5)
-    # graph.add_edge(2, 3)
-    # graph.add_edge(4, 6)
+    graph = Graph()  # Instantiate your graph
+    # https://github.com/LambdaSchool/Graphs/blob/master/objectives/breadth-first-search/img/bfs-visit-order.png
+    graph.add_vertex(1)
+    graph.add_vertex(2)
+    graph.add_vertex(3)
+    graph.add_vertex(4)
+    graph.add_vertex(5)
+    graph.add_vertex(6)
+    graph.add_vertex(7)
+    graph.add_edge(5, 3)
+    graph.add_edge(6, 3)
+    graph.add_edge(7, 1)
+    graph.add_edge(4, 7)
+    graph.add_edge(1, 2)
+    graph.add_edge(7, 6)
+    graph.add_edge(2, 4)
+    graph.add_edge(3, 5)
+    graph.add_edge(2, 3)
+    graph.add_edge(4, 6)
 
-    # '''
-    # Should print:
-    #     {1: {2}, 2: {3, 4}, 3: {5}, 4: {6, 7}, 5: {3}, 6: {3}, 7: {1, 6}}
-    # '''
-    # print(graph.vertices)
-    # print(f"\n")
-    # '''
-    # Valid BFT paths:
-    #     1, 2, 3, 4, 5, 6, 7
-    #     1, 2, 3, 4, 5, 7, 6
-    #     1, 2, 3, 4, 6, 7, 5
-    #     1, 2, 3, 4, 6, 5, 7
-    #     1, 2, 3, 4, 7, 6, 5
-    #     1, 2, 3, 4, 7, 5, 6
-    #     1, 2, 4, 3, 5, 6, 7
-    #     1, 2, 4, 3, 5, 7, 6
-    #     1, 2, 4, 3, 6, 7, 5
-    #     1, 2, 4, 3, 6, 5, 7
-    #     1, 2, 4, 3, 7, 6, 5
-    #     1, 2, 4, 3, 7, 5, 6
-    # '''
-    # #graph.bft(1)
+    '''
+    Should print:
+        {1: {2}, 2: {3, 4}, 3: {5}, 4: {6, 7}, 5: {3}, 6: {3}, 7: {1, 6}}
+    '''
+    print(graph.vertices)
+    print(f"\n")
+    '''
+    Valid BFT paths:
+        1, 2, 3, 4, 5, 6, 7
+        1, 2, 3, 4, 5, 7, 6
+        1, 2, 3, 4, 6, 7, 5
+        1, 2, 3, 4, 6, 5, 7
+        1, 2, 3, 4, 7, 6, 5
+        1, 2, 3, 4, 7, 5, 6
+        1, 2, 4, 3, 5, 6, 7
+        1, 2, 4, 3, 5, 7, 6
+        1, 2, 4, 3, 6, 7, 5
+        1, 2, 4, 3, 6, 5, 7
+        1, 2, 4, 3, 7, 6, 5
+        1, 2, 4, 3, 7, 5, 6
+    '''
+    #graph.bft(1)
 
     
 
-    # '''
-    # Valid DFT paths:
-    #     1, 2, 3, 5, 4, 6, 7
-    #     1, 2, 3, 5, 4, 7, 6
-    #     1, 2, 4, 7, 6, 3, 5
-    #     1, 2, 4, 6, 3, 5, 7
-    # '''
-    # #graph.dft(1)
-    # graph.dft_recursive(1)
+    '''
+    Valid DFT paths:
+        1, 2, 3, 5, 4, 6, 7
+        1, 2, 3, 5, 4, 7, 6
+        1, 2, 4, 7, 6, 3, 5
+        1, 2, 4, 6, 3, 5, 7
+    '''
+    graph.dft(1)
+    #graph.dft_recursive(1)
 
-    # '''
-    # Valid BFS path:
-    #     [1, 2, 4, 6]
-    # '''
-    # #print(graph.bfs(1, 6))
+    '''
+    Valid BFS path:
+        [1, 2, 4, 6]
+    '''
+    #print(graph.bfs(1, 6))
 
-    # '''
-    # Valid DFS paths:
-    #     [1, 2, 4, 6]
-    #     [1, 2, 4, 7, 6]
-    # '''
-    # #print(graph.dfs(1, 6))
-    # print("\n")
-    # print(graph.dfs_recursive(1, 6))
+    '''
+    Valid DFS paths:
+        [1, 2, 4, 6]
+        [1, 2, 4, 7, 6]
+    '''
+    print(graph.dfs(1, 6))
+    print("\n")
+    #print(graph.dfs_recursive(1, 6))
