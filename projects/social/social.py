@@ -73,12 +73,12 @@ class SocialGraph:
         """
         #friendships = {1: {5}, 2: {8, 9}, 3: {9, 5}, 4: {8, 9, 5}, 5: {1, 3, 4}, 6: {7}, 7: {10, 6}, 8: {2, 4}, 9: {2, 3, 4}, 10: {7}}
         friendships = self.friendships
-        print(f"test_friendships: {friendships}\n")
+        #print(f"test_friendships: {friendships}\n")
         visited = {}  # Note that this is a dictionary, not a set
         # !!!! IMPLEMENT ME
 
         for friendship in friendships:
-            print(f"START search. path from id: {user_id} to user: {self.friendships}")            
+            #print(f"START search. path from id: {user_id} to user: {self.friendships}")            
             path = self.find_path(user_id, friendship, friendships) #temporarily pass hard-coded friendships
             visited[friendship] = path
             
@@ -88,49 +88,49 @@ class SocialGraph:
 
     def find_path(self, user_id, destination_vertex, friendships):
         # Create a queue
-        print(f"find_path({user_id}, {destination_vertex}, friendships)")
+        #print(f"find_path({user_id}, {destination_vertex}, friendships)")
         visited = set()
         q = [[user_id]]
-        print(f"q: {q}")
+        #print(f"q: {q}")
         # Enqueue a PATH TO the starting vertex
         # Create a set to store visited verticies (above, but dict)
         # if destination_vertex > 5:
         #     destination_vertex = 5
         # While the queue is not empty...
         while len(q) > 0:
-            print(f"\nWHILE LOOP")
+            #print(f"\nWHILE LOOP")
             # Dequeue the first PATH
             first_path = q.pop(0)
-            print(f"first_path = {first_path}")
+            #print(f"first_path = {first_path}")
             # Grab the vertex from the end of the path
             v = first_path[-1]
-            print(f"new v = {v}")
+            #print(f"new v = {v}")
             # Check if it has been visited and             
             # If it hasn't been visited...
             if v not in visited:                
                 # Check if it's the TARGET
                 visited.add(v)
-                print(f"visited.add(v) = {visited}")
+                #print(f"visited.add(v) = {visited}")
                 if v == destination_vertex:
                     # if target then return path
-                    print(f"v is target: {v}!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")                   
-                    print(f"visited: {visited}")
-                    print(f"returning path: {first_path}\n")
+                    # print(f"v is target: {v}!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")                   
+                    # print(f"visited: {visited}")
+                    # print(f"returning path: {first_path}\n")
                     return first_path
                 # Enqueue a path to all it's neighbors
                     # Make a copy of the path
                     # Enqueue the copy
-                print(f"loop of ---> friendships[{v}]: {friendships[v]}")
+                #print(f"loop of ---> friendships[{v}]: {friendships[v]}")
                 for friendship in friendships[v]:                    
                     first_path_copy = first_path.copy()
-                    print(f"first_path_copy: {first_path_copy}")                
+                    #print(f"first_path_copy: {first_path_copy}")                
                     first_path_copy.append(friendship)
-                    print(f"first_path_copy.append({friendship})")
+                    #print(f"first_path_copy.append({friendship})")
                     q.append(first_path_copy)
-                    print(f"q.append(first_path_copy) =  {q}")
+                    # print(f"q.append(first_path_copy) =  {q}")
                     visited.add(v)
-                    print(f"q: {q}")
-                    print(f"visited: {visited} \n")
+                    # print(f"q: {q}")
+                    # print(f"visited: {visited} \n")
                 
 
                 
@@ -146,7 +146,7 @@ class SocialGraph:
 
 if __name__ == '__main__':
     sg = SocialGraph()
-    sg.populate_graph(10, 2)
+    sg.populate_graph(1000, 200)
     #print(f"friendships: {sg.friendships}")
     connections = sg.get_all_social_paths(1)
     print(f"connections: {connections}")
