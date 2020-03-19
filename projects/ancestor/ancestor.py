@@ -13,8 +13,6 @@ from graph import Graph
         # if so retrun the PATH
         #Push all of it's neighbors
 
-graph = Graph()
-
 def earliest_ancestor(ancestors, starting_node):
     # Create a stack
     stack = []
@@ -28,8 +26,7 @@ def earliest_ancestor(ancestors, starting_node):
     neighbors = dict()
     for ancestor in ancestors:
         if ancestor[1] in neighbors:
-            neighbors[ancestor[1]].add(ancestor[0])
-            
+            neighbors[ancestor[1]].add(ancestor[0])            
         else:
             neighbors[ancestor[1]] = set()
             neighbors[ancestor[1]].add(ancestor[0])
@@ -72,25 +69,28 @@ def earliest_ancestor(ancestors, starting_node):
         print(stack[0][-1])
         return stack[0][-1]
 
-    if len(stack[0]) > len(stack[1]):
-        print(stack[0][-1])
-        return stack[0][-1]
-    elif len(stack[0]) < len(stack[1]):
-        print(stack[1][-1])
-        return stack[1][-1]
-    elif len(stack[0]) == len(stack[1]):
-        if stack[0][-1] < stack[1][-1]:
-            print(stack[0][-1])
-            return stack[0][-1]
-        else:
-            print(stack[1][-1])
-            return stack[1][-1]
+    longest_stack = stack[0]
+
+    for arr in stack:
+        print(f"arr: {arr}")
+        if len(arr) == len(longest_stack):
+            if arr[-1] < longest_stack[-1]:
+                longest_stack = arr
+        elif len(arr) > len(longest_stack):
+            longest_stack = arr
+            
+    
+    print(f"longest_stack: {longest_stack}")
+    print(f"{longest_stack[-1]}")
+    return longest_stack[-1]
+
+  
 
     
 
 
 test_ancestors = [(1, 3), (2, 3), (3, 6), (5, 6), (5, 7), (4, 5), (4, 8), (8, 9), (11, 8), (10, 1)]
-earliest_ancestor(test_ancestors, 8)
+earliest_ancestor(test_ancestors, 9)
 
 
 # create dict child:parent
