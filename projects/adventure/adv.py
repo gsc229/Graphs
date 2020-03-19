@@ -34,11 +34,11 @@ traversal_path = ["n", "n", "s", "s", "s", "s", "n", "n", "e", "e", "w", "w", "w
 # TRAVERSAL TEST
 visited_rooms = set()
 player.current_room = world.starting_room
-visited_rooms.add(player.current_room)
+visited_rooms.add(player.current_room.id)
 
-for move in traversal_path:
-    player.travel(move)
-    visited_rooms.add(player.current_room)
+# for move in traversal_path:
+#     player.travel(move)
+#     visited_rooms.add(player.current_room)
 
 if len(visited_rooms) == len(room_graph):
     print(f"TESTS PASSED: {len(traversal_path)} moves, {len(visited_rooms)} rooms visited")
@@ -52,7 +52,13 @@ else:
 # UNCOMMENT TO WALK AROUND
 #######
 player.current_room.print_room_description(player)
-while len(traversal_path) > 0:
+while len(traversal_path) >=0:
+    print(f"len(visted_rooms): {len(visited_rooms)}, len(room_graph): {len(room_graph)}")
+    if len(visited_rooms) == len(room_graph):
+        print(f"TESTS PASSED: {len(traversal_path)} moves, {len(visited_rooms)} rooms visited")
+        break
+    
+    print(f"{len(room_graph) - len(visited_rooms)} unvisited rooms")
     #cmds = input("-> ").lower().split(" ")
     cmd = traversal_path.pop(0)
     print(f"cmd: {cmd}")
@@ -61,7 +67,8 @@ while len(traversal_path) > 0:
         world.print_rooms()
         if player.current_room not in visited_rooms:
             visited_rooms.add(player.current_room.id)
-            print(f"current room: {player.current_room.id}")
+            print(f"visited rooms: {visited_rooms}")
+            print(f"current room: {player.current_room.description}")
     elif cmds[0] == "q":
         break
     else:
