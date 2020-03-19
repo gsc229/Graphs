@@ -34,10 +34,8 @@ class SocialGraph:
         """
         Takes a number of users and an average number of friendships
         as arguments
-
         Creates that number of users and a randomly distributed friendships
         between those users.
-
         The number of users must be greater than the average number of friendships.
         """
         # Reset graph
@@ -73,14 +71,15 @@ class SocialGraph:
         extended network with the shortest friendship path between them.
         The key is the friend's ID and the value is the path.
         """
-        friendships = {1: {5}, 2: {8, 9}, 3: {9, 5}, 4: {8, 9, 5}, 5: {1, 3, 4}, 6: {7}, 7: {10, 6}, 8: {2, 4}, 9: {2, 3, 4}, 10: {7}}
+        #friendships = {1: {5}, 2: {8, 9}, 3: {9, 5}, 4: {8, 9, 5}, 5: {1, 3, 4}, 6: {7}, 7: {10, 6}, 8: {2, 4}, 9: {2, 3, 4}, 10: {7}}
+        friendships = self.friendships
         print(f"test_friendships: {friendships}\n")
         visited = {}  # Note that this is a dictionary, not a set
         # !!!! IMPLEMENT ME
 
         for friendship in friendships:
-            print(f"START search. path from id: {user_id} to user: {friendship}")            
-            path = self.find_path(user_id, friendship, friendships) #temporarily pass friendship
+            print(f"START search. path from id: {user_id} to user: {self.friendships}")            
+            path = self.find_path(user_id, friendship, friendships) #temporarily pass hard-coded friendships
             visited[friendship] = path
             
         
@@ -94,7 +93,6 @@ class SocialGraph:
         q = [[user_id]]
         print(f"q: {q}")
         # Enqueue a PATH TO the starting vertex
-        
         # Create a set to store visited verticies (above, but dict)
         # if destination_vertex > 5:
         #     destination_vertex = 5

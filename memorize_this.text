@@ -37,4 +37,19 @@ dfs
         #Push all of it's neighbors
 
 
-
+bfs
+# Create a queue
+# Enqueue a PATH TO the starting vertex
+# Create a set to store visited verticies
+# While the queue is not empty...
+    # Dequeue the first PATH
+    # Grab the vertex from the end of the path
+    # Check if it has been visited 
+    # If it hasn't been visited...
+        #Mark it as visited
+        # Check if it's the TARGET
+            # if target then return path
+        # Enqueue a path to all it's neighbors
+            # Make a copy of the path
+            # Enqueue the copy
+            
