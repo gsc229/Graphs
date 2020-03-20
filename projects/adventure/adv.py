@@ -41,11 +41,37 @@ print(f"{possible_exits}")
 
 travel_graph = {}
 
+def update_travel_graph(room_id, prev_room=None, prev_dir=None):
+    print(f"\nupdate_rooms_to_explore({room_id})")
+    travel_graph[room_id] = {}  
+    for direction in player.current_room.get_exits():  
+        room_dirs = travel_graph[room_id]
+        room_dirs.update({direction: '?'})
+        
+    if prev_room is not None:
+        travel_graph[room_id][prev_dir] = prev_room
+        
+    print(f"{travel_graph}\n")
+
+def get_unexplored_dirs(room_id):
+    all_directions = travel_graph[room_id]
+    unexplored = []
+    print(f"unexplored: {unexplored}")
+    for direction in all_directions:
+        if direction == '?':
+            unexplored.append(direction)
+
+    return unexplored
+
 while len(visited_rooms) < len(room_graph):
 
-    if player.current_room.id not in travel_graph:
-        
+    
 
+    if player.current_room.id not in travel_graph:
+        update_travel_graph(player.current_room.id)
+
+    unexplored_directions = get_unexplored_dirs(player.current_room.id)
+    print(f"{unexplored_directions}")
     break
 
 
