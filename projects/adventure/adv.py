@@ -12,9 +12,10 @@ world = World()
 # You may uncomment the smaller graphs for development and testing purposes.
 # map_file = "maps/test_line.txt"
 # map_file = "maps/test_cross.txt"
-# map_file = "maps/test_loop.txt"
+map_file = "maps/test_loop.txt"
 # map_file = "maps/test_loop_fork.txt"
-map_file = "maps/main_maze.txt"
+# map_file = "maps/main_maze.txt"
+
 
 # Loads the map into a dictionary
 room_graph=literal_eval(open(map_file, "r").read())
@@ -35,6 +36,18 @@ traversal_path = []
 visited_rooms = set()
 player.current_room = world.starting_room
 visited_rooms.add(player.current_room)
+possible_exits = player.current_room.get_exits()
+print(f"{possible_exits}")
+
+travel_graph = {}
+
+while len(visited_rooms) < len(room_graph):
+
+    if player.current_room.id not in travel_graph:
+        
+
+    break
+
 
 for move in traversal_path:
     player.travel(move)
