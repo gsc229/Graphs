@@ -55,23 +55,33 @@ def update_travel_graph(room_id, prev_room=None, prev_dir=None):
 
 def get_unexplored_dirs(room_id):
     all_directions = travel_graph[room_id]
-    unexplored = []
+    unexplored = [direction for direction in all_directions if all_directions[direction] == '?']
     print(f"unexplored: {unexplored}")
-    for direction in all_directions:
-        if direction == '?':
-            unexplored.append(direction)
-
-    return unexplored
-
-while len(visited_rooms) < len(room_graph):
+    #unexplored_dirs = [direction for direction in explore_history if explore_history[direction] == '?']
+    if len(unexplored) == 0:
+        return None
+    else:
+        random_num = random.randrange(0, len(unexplored))
+        return unexplored[random_num]
 
     
+
+while len(visited_rooms) < len(room_graph):
 
     if player.current_room.id not in travel_graph:
         update_travel_graph(player.current_room.id)
 
-    unexplored_directions = get_unexplored_dirs(player.current_room.id)
-    print(f"{unexplored_directions}")
+    unexplored_direction = get_unexplored_dirs(player.current_room.id)
+    print(f"{unexplored_direction}")
+
+    if unexplored_direction is None:
+        # do sth
+        print("NADA")
+    else:
+        player.travel(unexplored_direction)
+        print(f"now in room {player.current_room.id}")
+
+
     break
 
 
