@@ -1,7 +1,7 @@
 from room import Room
 from player import Player
 from world import World
-
+from bfs import bfs
 import random
 from ast import literal_eval
 
@@ -11,10 +11,10 @@ world = World()
 
 # You may uncomment the smaller graphs for development and testing purposes.
 # map_file = "maps/test_line.txt"
-# map_file = "maps/test_cross.txt"
+map_file = "maps/test_cross.txt"
 # map_file = "maps/test_loop.txt"
 # map_file = "maps/test_loop_fork.txt"
-map_file = "maps/main_maze.txt"
+# map_file = "maps/main_maze.txt"
 
 
 # Loads the map into a dictionary
@@ -112,47 +112,24 @@ while len(travel_graph) < len(room_graph):
         #print(f"now in room {player.current_room.id}")
         update_logs(player.current_room.id, unexplored_direction)
 
-
-
     # IF YOU REACH A DEAD END
     if unexplored_direction is None:
-        # do sth
-        #print("NADA")
-        opposite = {'n': 's', 's': 'n', 'e': 'w', 'w': 'e'}
+        direction_set = bfs(travel_graph, player.current_room.id, '?')
+        print(f"direction_set: {direction_set}")
+        setps_to_unexplored = direction_set[1]
+        print(f"steps_to_unexplored: {setps_to_unexplored}")
+        for step in setps_to_unexplored:
+            print(f"STEP: {step}")
+            player.travel(step)
+            print(f"player.current_room: {player.current_room.id}")
         
-        reverse_travel_path = traversal_path.copy()
-        reverse_travel_path.reverse()
-        #print(f"original:     {traversal_path}")
-        #print(f"reverse_path: {reverse_travel_path}")
-        
-        for direction in reverse_travel_path:
-            #print(direction)
-            player.travel(opposite[direction])
-            traversal_path.append(opposite[direction])
-            
-            if get_unexplored_dir(player.current_room.id) is not None:
-                break
-            #print(f"player entered room: {entered_room.id}")
-            
-            
-            # if entered_room.id not in travel_graph:
-            #     update_travel_graph(entered_room.id)
-                
-            # #print(f"traversal_info of entered room: {travel_graph[player.current_room.id]}")
-            # for direction in travel_graph[entered_room.id]:
-            #     #print(direction)
-            #     if travel_graph[entered_room.id][direction] == '?':
-            #         new_direction = get_unexplored_dirs(entered_room.id)
-            #         player.travel(new_direction)
-            #         traversal_path.append(new_direction)
-        #print(f"traversal_path: {traversal_path}")
         
     
 
 print(f"====================END WHILE LOOP===========================================\n")
-#print(f"travel_graph: {travel_graph}\n")
-#print(f"traversal_path: {traversal_path}")
-#print(f"moves: {len(traversal_path)}")
+print(f"travel_graph: {travel_graph}\n")
+print(f"traversal_path: {traversal_path}")
+print(f"moves: {len(traversal_path)}")
 print(f"\n====================END WHILE LOOP===========================================\n")
 
 player.current_room = world.starting_room
@@ -183,3 +160,35 @@ else:
 #         break
 #     else:
 #         print("I did not understand that command.")
+
+
+# do sth
+        #print("NADA")
+        # opposite = {'n': 's', 's': 'n', 'e': 'w', 'w': 'e'}
+        
+        # reverse_travel_path = traversal_path.copy()
+        # reverse_travel_path.reverse()
+        # #print(f"original:     {traversal_path}")
+        # #print(f"reverse_path: {reverse_travel_path}")
+        
+        # for direction in reverse_travel_path:
+        #     #print(direction)
+        #     player.travel(opposite[direction])
+        #     traversal_path.append(opposite[direction])
+            
+        #     if get_unexplored_dir(player.current_room.id) is not None:
+        #         break
+        #     #print(f"player entered room: {entered_room.id}")
+            
+            
+        #     # if entered_room.id not in travel_graph:
+        #     #     update_travel_graph(entered_room.id)
+                
+        #     # #print(f"traversal_info of entered room: {travel_graph[player.current_room.id]}")
+        #     # for direction in travel_graph[entered_room.id]:
+        #     #     #print(direction)
+        #     #     if travel_graph[entered_room.id][direction] == '?':
+        #     #         new_direction = get_unexplored_dirs(entered_room.id)
+        #     #         player.travel(new_direction)
+        #     #         traversal_path.append(new_direction)
+        # #print(f"traversal_path: {traversal_path}")
